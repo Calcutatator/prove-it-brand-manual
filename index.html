@@ -1,0 +1,700 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Brand manual | Prove It — Client-Side Proving Activation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700;800&family=Oswald:wght@500;600;700&family=Yellowtail&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* Core (canonical) */
+    --magenta:#E0218A;
+    --grape:#6E4B9E;
+    --ink:#161011;
+    --cream:#F3EBDA;
+    /* Approved overrides / accents */
+    --court-red:#E4032E;
+    --gold:#F4B223;
+    --sky:#6FB5DC;
+    --paper:#F6EFE1;
+    --paper-2:#EFE5D2;
+    --line:rgba(22,16,17,.14);
+    --line-strong:rgba(22,16,17,.28);
+    --shadow:0 1px 0 rgba(22,16,17,.12);
+    --maxw:1180px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Archivo",system-ui,sans-serif;font-size:16px;line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  /* film grain */
+  body::before{
+    content:"";position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:.055;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    mix-blend-mode:multiply;
+  }
+  a{color:inherit}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  .display{font-family:"Anton",sans-serif;font-weight:400;letter-spacing:.01em;line-height:.92;text-transform:uppercase}
+  .util{font-family:"Oswald",sans-serif;text-transform:uppercase;letter-spacing:.14em}
+  .script{font-family:"Yellowtail",cursive}
+  .mono{font-family:"JetBrains Mono",ui-monospace,monospace}
+  .eyebrow{font-family:"Oswald",sans-serif;text-transform:uppercase;letter-spacing:.22em;font-size:12px;font-weight:600;color:rgba(22,16,17,.62)}
+
+  /* skip link */
+  .skip{position:absolute;left:-9999px;top:8px;background:var(--ink);color:var(--cream);padding:8px 14px;border-radius:6px;z-index:10000}
+  .skip:focus{left:16px}
+
+  /* ===== Header ===== */
+  header.nav{position:sticky;top:0;z-index:100;background:rgba(243,235,218,.86);backdrop-filter:blur(8px);border-bottom:2px solid var(--ink)}
+  .nav-inner{max-width:var(--maxw);margin:0 auto;padding:12px 24px;display:flex;align-items:center;gap:22px}
+  .brandmark{display:flex;flex-direction:column;line-height:1;text-decoration:none}
+  .brandmark .bm-top{font-family:"Anton",sans-serif;font-size:22px;letter-spacing:.02em;text-transform:uppercase}
+  .brandmark .bm-top b{color:var(--magenta)}
+  .brandmark .bm-sub{font-family:"Oswald",sans-serif;text-transform:uppercase;letter-spacing:.2em;font-size:9.5px;color:rgba(22,16,17,.6);margin-top:3px}
+  nav.sections{display:flex;gap:6px;margin-left:auto;flex-wrap:wrap}
+  nav.sections a{font-family:"Oswald",sans-serif;text-transform:uppercase;letter-spacing:.13em;font-size:12.5px;font-weight:600;text-decoration:none;padding:7px 12px;border:1.5px solid transparent;border-radius:999px;color:var(--ink)}
+  nav.sections a:hover{border-color:var(--ink)}
+  .ver{font-family:"JetBrains Mono",monospace;font-size:10.5px;color:rgba(22,16,17,.55);border-left:1.5px solid var(--line-strong);padding-left:14px}
+  @media(max-width:780px){.ver{display:none}.nav-inner{gap:12px}}
+
+  /* ===== Hero ===== */
+  .hero{position:relative;overflow:hidden;border-bottom:2px solid var(--ink);
+    background:
+      radial-gradient(120% 90% at 88% 8%, rgba(244,178,35,.30), transparent 46%),
+      radial-gradient(120% 120% at 6% 100%, rgba(110,75,158,.34), transparent 52%),
+      linear-gradient(180deg,var(--paper),var(--paper-2));}
+  .hero .wrap{padding:66px 24px 60px}
+  .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:44px;align-items:center}
+  @media(max-width:900px){.hero-grid{grid-template-columns:1fr;gap:30px}}
+  h1.hero-h{font-size:clamp(46px,7vw,104px);margin:16px 0 0}
+  h1.hero-h .mag{color:var(--magenta)}
+  .hero-lede{font-size:18px;max-width:44ch;margin:20px 0 26px;color:rgba(22,16,17,.82)}
+  .cta-row{display:flex;gap:12px;flex-wrap:wrap}
+  .btn{display:inline-flex;align-items:center;gap:9px;font-family:"Oswald",sans-serif;text-transform:uppercase;letter-spacing:.12em;font-size:13px;font-weight:600;
+    padding:13px 20px;border-radius:999px;border:2px solid var(--ink);text-decoration:none;cursor:pointer;background:transparent;color:var(--ink)}
+  .btn.solid{background:var(--ink);color:var(--cream)}
+  .btn.mag{background:var(--magenta);border-color:var(--magenta);color:#fff}
+  .btn:hover{transform:translateY(-1px)}
+  .btn:active{transform:translateY(0)}
+
+  /* hero poster */
+  .poster{position:relative;aspect-ratio:4/5;border:2px solid var(--ink);border-radius:12px;overflow:hidden;
+    background:linear-gradient(155deg,var(--magenta),var(--grape));box-shadow:10px 10px 0 var(--ink)}
+  .poster .halftone{position:absolute;inset:0;opacity:.20;mix-blend-mode:overlay;
+    background-image:radial-gradient(circle,rgba(255,255,255,.9) 1px,transparent 1.4px);background-size:9px 9px}
+  .poster .tape{position:absolute;top:14px;left:-40px;transform:rotate(-8deg);background:var(--gold);color:var(--ink);
+    font-family:"Oswald",sans-serif;text-transform:uppercase;letter-spacing:.2em;font-size:11px;font-weight:700;padding:6px 52px}
+  .poster .p-word{position:absolute;left:22px;right:22px;bottom:88px;color:#fff}
+  .poster .p-word .l1{font-family:"Anton",sans-serif;font-size:clamp(40px,9vw,76px);line-height:.86;text-transform:uppercase}
+  .poster .p-word .l2{font-family:"Yellowtail",cursive;font-size:clamp(30px,7vw,52px);color:var(--gold);margin-top:-2px;transform:rotate(-4deg)}
+  .poster .p-foot{position:absolute;left:22px;right:22px;bottom:20px;display:flex;justify-content:space-between;align-items:end;color:rgba(255,255,255,.92)}
+  .poster .p-foot .mono{font-size:11px}
+  .swoosh-medal{width:56px;height:56px;border-radius:50%;background:var(--gold);border:2px solid #fff;display:grid;place-items:center;color:var(--ink);font-family:"Anton";font-size:26px;box-shadow:0 0 0 4px rgba(255,255,255,.25)}
+
+  /* status chips */
+  .chips{display:flex;gap:10px;flex-wrap:wrap;margin-top:34px}
+  .chip{border:1.5px solid var(--ink);border-radius:10px;padding:10px 13px;background:rgba(255,255,255,.5);min-width:150px}
+  .chip .k{font-family:"Oswald",sans-serif;text-transform:uppercase;letter-spacing:.16em;font-size:9.5px;color:rgba(22,16,17,.58)}
+  .chip .v{font-family:"Anton",sans-serif;text-transform:uppercase;font-size:15px;margin-top:3px}
+  .chip .v small{font-family:"Archivo";font-weight:600;font-size:11px;color:rgba(22,16,17,.6);text-transform:none;letter-spacing:0}
+
+  /* ===== Sections ===== */
+  section.band{border-bottom:2px solid var(--ink)}
+  section.band .wrap{padding:64px 24px}
+  .sec-head{display:flex;flex-direction:column;gap:8px;margin-bottom:34px;max-width:60ch}
+  .sec-index{font-family:"Oswald",sans-serif;text-transform:uppercase;letter-spacing:.28em;font-size:12px;font-weight:700;color:var(--magenta)}
+  h2.sec-h{font-size:clamp(34px,5vw,64px);margin:0}
+  .sec-sub{font-size:16.5px;color:rgba(22,16,17,.78);margin-top:4px}
+
+  .band.core{background:var(--paper)}
+  .band.compose{background:linear-gradient(180deg,#efe4cf,#f1e7d5)}
+  .band.assets{background:var(--paper)}
+  .band.rules{background:var(--ink);color:var(--cream)}
+  .band.rules .sec-sub{color:rgba(243,235,218,.75)}
+  .band.rules .sec-index{color:var(--gold)}
+
+  /* cards */
+  .cards{display:grid;gap:22px}
+  .two{grid-template-columns:1fr 1fr}
+  @media(max-width:860px){.two{grid-template-columns:1fr}}
+  .card{background:#fff;border:2px solid var(--ink);border-radius:14px;padding:24px;box-shadow:7px 7px 0 rgba(22,16,17,.12)}
+  .card .tag{display:inline-block;font-family:"Oswald",sans-serif;text-transform:uppercase;letter-spacing:.16em;font-size:10px;font-weight:700;
+    background:var(--ink);color:var(--cream);padding:4px 9px;border-radius:6px;margin-bottom:14px}
+  .card .tag.warn{background:var(--court-red)}
+  .card .tag.ok{background:var(--grape)}
+  .card h3{font-family:"Anton",sans-serif;text-transform:uppercase;font-weight:400;font-size:30px;line-height:.98;margin:6px 0 10px}
+  .card p{margin:0 0 12px;color:rgba(22,16,17,.82)}
+  .muted{color:rgba(22,16,17,.6);font-size:14px}
+  .rule-note{border-left:3px solid var(--gold);padding:8px 0 8px 14px;margin-top:14px;font-size:14px}
+  .rule-note b{font-family:"Oswald";text-transform:uppercase;letter-spacing:.12em;font-size:11px;display:block;color:rgba(22,16,17,.6)}
+
+  /* swatches */
+  .sw-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  @media(max-width:520px){.sw-grid{grid-template-columns:repeat(2,1fr)}}
+  .sw{border:1.5px solid var(--ink);border-radius:10px;overflow:hidden}
+  .sw .chipc{height:64px}
+  .sw .meta{padding:8px 10px}
+  .sw .nm{font-family:"Oswald";text-transform:uppercase;letter-spacing:.1em;font-size:11px;font-weight:600}
+  .sw .hx{font-family:"JetBrains Mono";font-size:11px;color:rgba(22,16,17,.62)}
+  .type-row{display:flex;justify-content:space-between;gap:14px;padding:13px 0;border-top:1px solid var(--line)}
+  .type-row:first-of-type{border-top:0}
+  .type-row .lab{font-family:"Oswald";text-transform:uppercase;letter-spacing:.14em;font-size:11px;color:rgba(22,16,17,.6);min-width:78px}
+  .type-row .spec{font-family:"JetBrains Mono";font-size:11.5px;color:rgba(22,16,17,.62);text-align:right}
+  .type-row .samp{flex:1}
+
+  /* compose */
+  .compose-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:22px}
+  @media(max-width:900px){.compose-grid{grid-template-columns:1fr}}
+  .panel{background:#fff;border:2px solid var(--ink);border-radius:14px;padding:22px;box-shadow:7px 7px 0 rgba(22,16,17,.12)}
+  .field{margin-bottom:18px}
+  .field > label{display:block;font-family:"Oswald";text-transform:uppercase;letter-spacing:.16em;font-size:11px;font-weight:700;color:rgba(22,16,17,.62);margin-bottom:8px}
+  .seg{display:flex;gap:8px;flex-wrap:wrap}
+  .seg button{flex:1;min-width:96px;text-align:left;background:var(--paper);border:1.5px solid var(--ink);border-radius:10px;padding:10px 12px;cursor:pointer}
+  .seg button .t{font-family:"Oswald";text-transform:uppercase;letter-spacing:.1em;font-weight:700;font-size:13px}
+  .seg button .d{font-family:"JetBrains Mono";font-size:10.5px;color:rgba(22,16,17,.6)}
+  .seg button[aria-pressed="true"]{background:var(--magenta);color:#fff;border-color:var(--magenta)}
+  .seg button[aria-pressed="true"] .d{color:rgba(255,255,255,.85)}
+  select{width:100%;font-family:"Archivo";font-size:15px;padding:12px;border:1.5px solid var(--ink);border-radius:10px;background:var(--paper)}
+  .status-line{font-family:"Oswald";text-transform:uppercase;letter-spacing:.12em;font-size:11px;margin-top:8px;color:var(--court-red)}
+  .status-line.cleared{color:var(--grape)}
+  .brief-out{background:var(--ink);color:#e9e3d4;border-radius:12px;padding:16px;font-family:"JetBrains Mono";font-size:12px;line-height:1.6;white-space:pre-wrap;max-height:320px;overflow:auto}
+  .preview-poster{aspect-ratio:16/10;border:2px solid var(--ink);border-radius:12px;overflow:hidden;position:relative;background:linear-gradient(150deg,var(--grape),var(--magenta));box-shadow:7px 7px 0 rgba(22,16,17,.12);margin-bottom:14px}
+  .preview-poster.mobile{aspect-ratio:3/4;max-width:280px}
+  .preview-poster.social{aspect-ratio:1200/630}
+  .preview-poster .ht{position:absolute;inset:0;opacity:.18;mix-blend-mode:overlay;background-image:radial-gradient(circle,#fff 1px,transparent 1.4px);background-size:8px 8px}
+  .preview-poster .pv-word{position:absolute;left:18px;right:18px;top:16px;color:#fff;font-family:"Anton";text-transform:uppercase;font-size:clamp(22px,3.4vw,40px);line-height:.9}
+  .preview-poster .pv-line{position:absolute;left:18px;right:18px;bottom:44px;color:#fff;font-family:"Archivo";font-weight:600;font-size:13px}
+  .preview-poster .pv-lane{position:absolute;left:18px;right:18px;bottom:16px}
+
+  /* lane motif */
+  .lane{display:flex;align-items:center;gap:0;width:100%}
+  .lane .stg{flex:1;position:relative;text-align:center}
+  .lane .dot{width:13px;height:13px;border-radius:50%;background:#fff;border:2px solid var(--ink);margin:0 auto}
+  .lane .stg.win .dot{background:var(--gold);width:17px;height:17px}
+  .lane .bar{height:3px;background:repeating-linear-gradient(90deg,var(--ink) 0 8px,transparent 8px 14px);flex:1}
+  .lane .cap{font-family:"Oswald";text-transform:uppercase;letter-spacing:.08em;font-size:8.5px;margin-top:5px;color:rgba(255,255,255,.9)}
+  .lane-dark .cap{color:rgba(22,16,17,.72)}
+  .lane-big{padding:20px 0}
+  .lane-big .dot{width:20px;height:20px}
+  .lane-big .stg.win .dot{width:28px;height:28px}
+  .lane-big .cap{font-size:12px;color:rgba(22,16,17,.78);margin-top:9px}
+  .lane-big .cap b{display:block;font-family:"Anton";text-transform:uppercase;letter-spacing:0;font-size:15px;color:var(--ink)}
+
+  .mini-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+
+  /* asset cards */
+  .asset-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  @media(max-width:900px){.asset-grid{grid-template-columns:1fr 1fr}}
+  @media(max-width:600px){.asset-grid{grid-template-columns:1fr}}
+  .asset{background:#fff;border:2px solid var(--ink);border-radius:14px;overflow:hidden;box-shadow:7px 7px 0 rgba(22,16,17,.12);display:flex;flex-direction:column}
+  .asset .thumb{aspect-ratio:4/3;position:relative;overflow:hidden;border-bottom:2px solid var(--ink)}
+  .asset .thumb .ht{position:absolute;inset:0;opacity:.16;mix-blend-mode:overlay;background-image:radial-gradient(circle,#fff 1px,transparent 1.4px);background-size:8px 8px}
+  .asset .body{padding:16px 16px 18px;display:flex;flex-direction:column;gap:6px;flex:1}
+  .asset .kicker{font-family:"Oswald";text-transform:uppercase;letter-spacing:.16em;font-size:9.5px;color:rgba(22,16,17,.55)}
+  .asset h4{font-family:"Anton";text-transform:uppercase;font-weight:400;font-size:22px;margin:0}
+  .asset .dim{font-family:"JetBrains Mono";font-size:11px;color:rgba(22,16,17,.6)}
+  .asset .rule{font-size:13px;color:rgba(22,16,17,.78);margin:2px 0 0}
+  .asset .dl{margin-top:auto;padding-top:12px}
+  .asset .dl a{font-family:"Oswald";text-transform:uppercase;letter-spacing:.12em;font-size:11px;font-weight:700;text-decoration:none;border:1.5px solid var(--ink);border-radius:999px;padding:7px 13px;display:inline-block}
+
+  /* thumb compositions */
+  .t-fill{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#fff;text-align:center}
+  .t-mag{background:linear-gradient(150deg,var(--magenta),#b3186f)}
+  .t-grape{background:linear-gradient(150deg,var(--grape),#4b2f73)}
+  .t-sky{background:linear-gradient(150deg,var(--sky),#3f7fa8)}
+  .t-red{background:linear-gradient(150deg,var(--court-red),#9c0320)}
+  .t-gold{background:linear-gradient(150deg,var(--gold),#c98a10);color:var(--ink)}
+  .t-fill .aw{font-family:"Anton";text-transform:uppercase;font-size:34px;line-height:.85}
+  .t-fill .aw small{display:block;font-family:"Yellowtail";text-transform:none;font-size:24px;color:var(--gold)}
+  .t-fill.t-gold .aw small{color:var(--court-red)}
+  .medal-row{display:flex;gap:10px;align-items:center;justify-content:center}
+  .medal{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;border:2px solid #fff;font-family:"Anton";font-size:18px;color:#fff}
+  .m-au{background:var(--gold);color:var(--ink)}
+  .m-ag{background:#cdd3d8;color:var(--ink)}
+  .m-br{background:#c67b3f}
+  .icon-badge{width:70px;height:70px;border-radius:16px;background:var(--ink);display:grid;place-items:center;border:2px solid #fff}
+  .icon-badge .z{font-family:"Anton";color:var(--magenta);font-size:40px;line-height:1}
+
+  /* rules */
+  .an{display:grid;grid-template-columns:1fr 1fr;gap:0;border:2px solid var(--gold);border-radius:14px;overflow:hidden}
+  @media(max-width:760px){.an{grid-template-columns:1fr}}
+  .an .col{padding:6px 0}
+  .an .h{font-family:"Oswald";text-transform:uppercase;letter-spacing:.16em;font-size:12px;font-weight:700;padding:12px 18px;border-bottom:1.5px solid rgba(244,178,35,.4)}
+  .an .always .h{background:rgba(110,75,158,.35);color:#fff}
+  .an .never .h{background:rgba(228,3,46,.32);color:#fff}
+  .an .col.never{border-left:1.5px solid rgba(244,178,35,.4)}
+  @media(max-width:760px){.an .col.never{border-left:0;border-top:1.5px solid rgba(244,178,35,.4)}}
+  .an li{list-style:none;padding:12px 18px;border-bottom:1px solid rgba(243,235,218,.12);font-size:14px}
+  .an ul{margin:0;padding:0}
+  .status-tbl{margin-top:24px;border:1.5px solid rgba(243,235,218,.25);border-radius:12px;overflow:hidden}
+  .status-tbl .r{display:grid;grid-template-columns:180px 130px 1fr;gap:0;border-top:1px solid rgba(243,235,218,.14)}
+  .status-tbl .r:first-child{border-top:0}
+  @media(max-width:760px){.status-tbl .r{grid-template-columns:1fr}}
+  .status-tbl .c{padding:12px 16px;font-size:13.5px}
+  .status-tbl .c.k{font-family:"Oswald";text-transform:uppercase;letter-spacing:.12em;font-size:11px;color:var(--gold)}
+  .status-tbl .c.s{font-family:"JetBrains Mono";font-size:11px;color:rgba(243,235,218,.7)}
+  .kit{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+  .kit a{font-family:"Oswald";text-transform:uppercase;letter-spacing:.12em;font-size:12px;font-weight:700;text-decoration:none;border:2px solid var(--gold);color:var(--gold);border-radius:999px;padding:11px 18px;cursor:pointer}
+  .kit a:hover{background:var(--gold);color:var(--ink)}
+  .spec-list{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1.5px solid rgba(243,235,218,.25);border-radius:12px;overflow:hidden;margin-top:8px}
+  @media(max-width:760px){.spec-list{grid-template-columns:1fr}}
+  .spec-list .sp{padding:16px 18px;border-top:1px solid rgba(243,235,218,.14)}
+  .spec-list .sp:nth-child(-n+2){border-top:0}
+  .spec-list .sp .lab{font-family:"Oswald";text-transform:uppercase;letter-spacing:.14em;font-size:10px;color:var(--gold);margin-bottom:6px}
+  .spec-list .sp p{margin:0;font-size:13.5px;color:rgba(243,235,218,.85)}
+
+  footer{background:var(--ink);color:rgba(243,235,218,.7);border-top:2px solid var(--gold)}
+  footer .wrap{padding:26px 24px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-family:"JetBrains Mono";font-size:11.5px}
+
+  .toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(80px);background:var(--ink);color:var(--cream);
+    border:2px solid var(--gold);border-radius:999px;padding:11px 20px;font-family:"Oswald";text-transform:uppercase;letter-spacing:.14em;font-size:12px;
+    transition:transform .28s ease;z-index:10001}
+  .toast.show{transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<a class="skip" href="#brand-content">Skip to the brand manual</a>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brandmark" href="#top">
+      <span class="bm-top">PROVE <b>IT.</b></span>
+      <span class="bm-sub">Client-Side Proving · Brand manual</span>
+    </a>
+    <nav class="sections" aria-label="Brand sections">
+      <a href="#core">Core</a>
+      <a href="#compose">Compose</a>
+      <a href="#assets">Assets</a>
+      <a href="#rules">Rules</a>
+    </nav>
+    <span class="ver mono">proving-activation@v0.1 · retro-athletic canon</span>
+  </div>
+</header>
+
+<main id="brand-content">
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <span class="eyebrow">Client-Side Proving Activation / working brand system</span>
+        <h1 class="hero-h display">One press.<br><span class="mag">You proved it.</span></h1>
+        <p class="hero-lede">The activation brand for StarkWare's mobile client-side proving. It reframes a world-class cryptographic feat as an athletic one: your phone trains, sweats for twenty seconds, and earns a medal. Built on the recorded visual canon below — keep every product claim inside the current privacy-stack review.</p>
+        <div class="cta-row">
+          <a class="btn mag" href="#compose">Create a brief →</a>
+          <a class="btn" href="#assets">See the masters</a>
+          <button class="btn solid" id="dlTokens">Brand tokens ↓</button>
+        </div>
+        <div class="chips">
+          <div class="chip"><div class="k">Visual system</div><div class="v">Canonical <small>main + overrides</small></div></div>
+          <div class="chip"><div class="k">Narrative</div><div class="v">Working <small>Jul 16 GTM</small></div></div>
+          <div class="chip"><div class="k">Public copy</div><div class="v">Check status <small>1 line cleared*</small></div></div>
+        </div>
+      </div>
+      <div>
+        <div class="poster" role="img" aria-label="Prove It hero poster: bold campaign lockup over a magenta-to-grape field with a gold medal">
+          <div class="halftone"></div>
+          <div class="tape">First 1,000 mobile provers</div>
+          <div class="p-word">
+            <div class="l1">Prove<br>it.</div>
+            <div class="l2">on your own phone</div>
+          </div>
+          <div class="p-foot">
+            <span class="mono">TAP → PROVE → MEDAL</span>
+            <span class="swoosh-medal">✔</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 01 CORE -->
+<section class="band core" id="core">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-index">01 / Core</span>
+      <h2 class="sec-h display">Big feat.<br>Small phone.</h2>
+      <p class="sec-sub">Two sources of truth. This recorded canon governs the look. The privacy-stack review governs every product claim — a strong line is not an approved line.</p>
+    </div>
+    <div class="cards two">
+      <article class="card">
+        <span class="tag warn">Message · working, not cleared</span>
+        <div class="eyebrow">Proposed wedge</div>
+        <h3>The phone is the athlete</h3>
+        <p>Most cryptography is invisible. Client-side proving is the opposite — for twenty seconds your own device does something only a data-centre could do a year ago, and you watch it happen. We stage that as a sports-hero moment: effort, a countdown, a finish line, a medal you keep.</p>
+        <div class="eyebrow">Working promise</div>
+        <p style="margin-bottom:6px"><b>Press once. Your phone proves it. You keep the medal.</b></p>
+        <p class="muted">A proof is generated on-device and submitted to Starknet Sepolia; the reward is a soulbound badge with no tradeable value. The feat is real; the medal is a keepsake, not a payout.</p>
+        <div class="rule-note"><b>Release rule</b>A strong line is not an approved line. Check clearance before publishing — especially any proving-time or privacy claim.</div>
+      </article>
+
+      <article class="card">
+        <span class="tag">Visual system · canonical (main + approved overrides)</span>
+        <div class="eyebrow" style="margin-bottom:10px">Core palette</div>
+        <div class="sw-grid" style="margin-bottom:8px">
+          <div class="sw"><div class="chipc" style="background:#E0218A"></div><div class="meta"><div class="nm">Magenta</div><div class="hx">#E0218A</div></div></div>
+          <div class="sw"><div class="chipc" style="background:#6E4B9E"></div><div class="meta"><div class="nm">Grape</div><div class="hx">#6E4B9E</div></div></div>
+          <div class="sw"><div class="chipc" style="background:#161011"></div><div class="meta"><div class="nm">Ink</div><div class="hx">#161011</div></div></div>
+          <div class="sw"><div class="chipc" style="background:#F3EBDA;border-bottom:1px solid var(--line)"></div><div class="meta"><div class="nm">Cream</div><div class="hx">#F3EBDA</div></div></div>
+        </div>
+        <div class="eyebrow" style="margin:14px 0 10px">Approved overrides — accents only</div>
+        <div class="sw-grid">
+          <div class="sw"><div class="chipc" style="background:#E4032E"></div><div class="meta"><div class="nm">Court red</div><div class="hx">#E4032E</div></div></div>
+          <div class="sw"><div class="chipc" style="background:#F4B223"></div><div class="meta"><div class="nm">Medal gold</div><div class="hx">#F4B223</div></div></div>
+          <div class="sw"><div class="chipc" style="background:#6FB5DC"></div><div class="meta"><div class="nm">Court sky</div><div class="hx">#6FB5DC</div></div></div>
+          <div class="sw"><div class="chipc" style="background:linear-gradient(90deg,#E0218A,#6E4B9E)"></div><div class="meta"><div class="nm">Sweat grad</div><div class="hx">mag→grape</div></div></div>
+        </div>
+
+        <div class="eyebrow" style="margin:20px 0 4px">Type roles</div>
+        <div class="type-row"><span class="lab">Display</span><span class="samp display" style="font-size:24px">PROVE IT.</span><span class="spec">Anton 400<br>headlines / lockups</span></div>
+        <div class="type-row"><span class="lab">Signature</span><span class="samp script" style="font-size:26px;color:var(--magenta)">on your phone</span><span class="spec">Yellowtail<br>accent / endorsement</span></div>
+        <div class="type-row"><span class="lab">Reading</span><span class="samp" style="font-size:15px">Body &amp; interface copy</span><span class="spec">Archivo 400/600/800</span></div>
+        <div class="type-row"><span class="lab">Utility</span><span class="samp util" style="font-size:13px">LABELS · STEPS · CTAS</span><span class="spec">Oswald 500/600/700</span></div>
+        <div class="type-row"><span class="lab">Data</span><span class="samp mono" style="font-size:13px">0x9f…proof · 19.4s</span><span class="spec">Monospace<br>hashes, times, wallets</span></div>
+        <div class="rule-note"><b>Lettering is artwork</b>Keep the master lockups. Do not retype, trace, stretch, or regenerate them.</div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- 02 COMPOSE -->
+<section class="band compose" id="compose">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-index">02 / Compose</span>
+      <h2 class="sec-h display">Start from a fixed frame.</h2>
+      <p class="sec-sub">Pick a viewport and a copy line. The tool writes a production brief; the signature motif — <span class="mono" style="font-size:13px">TAP → PROVE → SUBMIT → MEDAL</span> — never changes order and always ends at the medal.</p>
+    </div>
+
+    <div class="compose-grid">
+      <div class="panel">
+        <div class="field">
+          <label>Output</label>
+          <div class="seg" id="segOut">
+            <button data-out="Desktop" data-dim="1586 × 992" aria-pressed="true"><span class="t">Desktop</span><br><span class="d">1586 × 992</span></button>
+            <button data-out="Mobile" data-dim="1122 × 1402" aria-pressed="false"><span class="t">Mobile</span><br><span class="d">1122 × 1402</span></button>
+            <button data-out="Social" data-dim="1200 × 630" aria-pressed="false"><span class="t">Social</span><br><span class="d">1200 × 630</span></button>
+          </div>
+        </div>
+        <div class="field">
+          <label for="copySel">Campaign line</label>
+          <select id="copySel">
+            <option data-status="cleared">Prove it. On your own phone.</option>
+            <option data-status="needs" selected>Your phone just did what a data-centre used to.</option>
+            <option data-status="needs">Twenty seconds. One proof. All yours.</option>
+            <option data-status="needs">No servers. No wallet in the way. Just you and the proof.</option>
+            <option data-status="needs">Most phones can't. Yours did.</option>
+            <option data-status="needs">Real cryptography. Personal best.</option>
+          </select>
+          <div class="status-line" id="statusLine">Operational description · needs-clearance</div>
+        </div>
+        <div class="field">
+          <label>Signature motif — do not reorder</label>
+          <div class="lane lane-dark" style="background:var(--paper);border:1.5px solid var(--ink);border-radius:10px;padding:14px 12px">
+            <div class="stg"><div class="dot"></div><div class="cap">Tap</div></div>
+            <div class="bar"></div>
+            <div class="stg"><div class="dot"></div><div class="cap">Prove · on-device</div></div>
+            <div class="bar"></div>
+            <div class="stg"><div class="dot"></div><div class="cap">Submit · Sepolia</div></div>
+            <div class="bar"></div>
+            <div class="stg win"><div class="dot"></div><div class="cap">Medal</div></div>
+          </div>
+        </div>
+        <div class="mini-actions">
+          <button class="btn solid" id="copyBrief">Copy brief</button>
+          <button class="btn" id="dlBrief">Download .txt</button>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="eyebrow" id="pvLabel">Reference master / Desktop</div>
+        <div class="preview-poster" id="pvPoster" style="margin-top:10px">
+          <div class="ht"></div>
+          <div class="pv-word">Prove<br>it.</div>
+          <div class="pv-line" id="pvLine">Your phone just did what a data-centre used to.</div>
+          <div class="pv-lane">
+            <div class="lane">
+              <div class="stg"><div class="dot"></div><div class="cap">Tap</div></div><div class="bar"></div>
+              <div class="stg"><div class="dot"></div><div class="cap">Prove</div></div><div class="bar"></div>
+              <div class="stg"><div class="dot"></div><div class="cap">Submit</div></div><div class="bar"></div>
+              <div class="stg win"><div class="dot"></div><div class="cap">Medal</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="eyebrow" style="margin:6px 0">Generated brief</div>
+        <pre class="brief-out mono" id="briefOut"></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 ASSETS -->
+<section class="band assets" id="assets">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-index">03 / Assets</span>
+      <h2 class="sec-h display">Masters, not examples.</h2>
+      <p class="sec-sub">One master per surface across the three activation apps that share a chassis — Pocket Prover, Daily Proof, Prover Relay. Previews are on-brand specimens; place transparent lockups only on the core fields.</p>
+    </div>
+
+    <div class="asset-grid">
+      <article class="asset">
+        <div class="thumb"><div class="t-fill t-mag"><div class="aw">Pocket<br>Prover<small>prove a block</small></div></div><div class="ht"></div></div>
+        <div class="body">
+          <span class="kicker">⚡ Concept A · desktop hero</span>
+          <h4>Pocket Prover hero</h4>
+          <span class="dim">1586 × 992 · transparent</span>
+          <p class="rule">Place the lockup on the sweat gradient (magenta→grape). Feat = proving a Starknet block. Never upscale.</p>
+          <div class="dl"><a data-asset="Pocket Prover hero">Download ↓</a></div>
+        </div>
+      </article>
+
+      <article class="asset">
+        <div class="thumb"><div class="t-fill t-grape"><div class="aw">Daily<br>Proof<small>don't spoil it</small></div></div><div class="ht"></div></div>
+        <div class="body">
+          <span class="kicker">🟩 Concept D · mobile hero</span>
+          <h4>Daily Proof hero</h4>
+          <span class="dim">1122 × 1402 · transparent</span>
+          <p class="rule">Portrait master on grape. The daily result grid is honest — cryptographically, not on trust. Own name, never "Wordle".</p>
+          <div class="dl"><a data-asset="Daily Proof hero">Download ↓</a></div>
+        </div>
+      </article>
+
+      <article class="asset">
+        <div class="thumb"><div class="t-fill t-sky"><div class="aw">Prover<br>Relay<small>prove for the crowd</small></div></div><div class="ht"></div></div>
+        <div class="body">
+          <span class="kicker">🔁 Concept E · social card</span>
+          <h4>Prover Relay card</h4>
+          <span class="dim">1200 × 630 · opaque sky</span>
+          <p class="rule">Capable phones prove for everyone. Public-witness proofs only on the relay — say so on the card.</p>
+          <div class="dl"><a data-asset="Prover Relay card">Download ↓</a></div>
+        </div>
+      </article>
+
+      <article class="asset">
+        <div class="thumb"><div class="t-fill t-gold"><div class="medal-row"><div class="medal m-br">B</div><div class="medal m-ag">S</div><div class="medal m-au">G</div></div></div><div class="ht"></div></div>
+        <div class="body">
+          <span class="kicker">Shared · reward system</span>
+          <h4>Medal tiers</h4>
+          <span class="dim">Soulbound · bronze / silver / gold</span>
+          <p class="rule">Tier by proving time (The Button colour model). Non-transferable — a keepsake, never a payout.</p>
+          <div class="dl"><a data-asset="Medal tier kit">Download ↓</a></div>
+        </div>
+      </article>
+
+      <article class="asset">
+        <div class="thumb"><div class="t-fill t-red"><div class="aw" style="font-size:26px">A BIT OF<br>INDEPENDENCE<small style="font-size:18px">from the servers</small></div></div><div class="ht"></div></div>
+        <div class="body">
+          <span class="kicker">Shared · poster series</span>
+          <h4>Independence poster</h4>
+          <span class="dim">Print + social · court red</span>
+          <p class="rule">Homage to the vintage running-ad voice. "No servers" framing only when the on-device claim is cleared.</p>
+          <div class="dl"><a data-asset="Independence poster">Download ↓</a></div>
+        </div>
+      </article>
+
+      <article class="asset">
+        <div class="thumb"><div class="t-fill" style="background:var(--paper)"><div class="icon-badge"><span class="z">P</span></div></div><div class="ht"></div></div>
+        <div class="body">
+          <span class="kicker">Shared · app mark</span>
+          <h4>App icon</h4>
+          <span class="dim">1024 × 1024 · icon-only palette</span>
+          <p class="rule">Ink tile, magenta "P". Icon colours are an exception — do not reuse as page backgrounds.</p>
+          <div class="dl"><a data-asset="App icon">Download ↓</a></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- 04 RULES -->
+<section class="band rules" id="rules">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-index">04 / Rules</span>
+      <h2 class="sec-h display">Protect the signal.</h2>
+      <p class="sec-sub">These are the release decisions. Everything else is implementation detail.</p>
+    </div>
+
+    <div class="an">
+      <div class="col always">
+        <div class="h">Always</div>
+        <ul>
+          <li>Describe what the phone visibly and provably did.</li>
+          <li>Say "flagship / newer phones for now" when talking hardware.</li>
+          <li>Keep the medal a keepsake — soulbound, no tradeable value.</li>
+          <li>Run the motif one way: tap → prove on-device → submit → medal.</li>
+          <li>Use the approved lockups and lettering at original proportions.</li>
+          <li>Label working copy and clearance status honestly.</li>
+        </ul>
+      </div>
+      <div class="col never">
+        <div class="h">Never</div>
+        <ul>
+          <li>Publish phone proving <em>times/specs</em> without engineering sign-off.</li>
+          <li>Promise total anonymity or automatic regulatory compliance.</li>
+          <li>Offer tokens, prizes, or anything farmable for a proof.</li>
+          <li>Imply it runs on every phone, or hide the on-device step.</li>
+          <li>Retype, stretch, trace, or regenerate the lockups.</li>
+          <li>Add third-party trackers — the privacy app must be private.</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 class="display" style="font-weight:400;text-transform:uppercase;font-size:22px;margin:34px 0 10px;color:var(--gold)">Sources &amp; status</h3>
+    <div class="status-tbl">
+      <div class="r"><div class="c k">Visual canon</div><div class="c s">retro-athletic</div><div class="c">Palette, type roles, lettering, and the tap→prove→submit→medal motif, derived from the vintage sportswear reference set.</div></div>
+      <div class="r"><div class="c k">Narrative</div><div class="c s">working</div><div class="c">Jul 16 meetings: proof-submission volume is the metric; feat framing; flagship-only for ~2–3 months; nothing farmable.</div></div>
+      <div class="r"><div class="c k">Proving numbers</div><div class="c s">binding veto</div><div class="c">~15–29s figures are server-class engineering data (12-core / 46 GiB). No phone number in public copy without sign-off.</div></div>
+      <div class="r"><div class="c k">Privacy claims</div><div class="c s">SNF-gated</div><div class="c">Selective-disclosure wording must be legal/SNF-approved. Public-witness proofs are delegatable; private stays on-device.</div></div>
+      <div class="r"><div class="c k">Public copy</div><div class="c s">mixed</div><div class="c">One line cleared for use; every other variant still needs clearance before publishing.</div></div>
+    </div>
+
+    <h3 class="display" style="font-weight:400;text-transform:uppercase;font-size:22px;margin:34px 0 10px;color:var(--gold)">Production specification</h3>
+    <div class="spec-list">
+      <div class="sp"><div class="lab">Signature motif</div><p>One lane, left to right: TAP → PROVE (on-device, ~20s theatre) → SUBMIT (Sepolia) → MEDAL. The on-device stage is the point — never skip or reorder it.</p></div>
+      <div class="sp"><div class="lab">Proving theatre</div><p>Show the real stages — execution trace → constraints → wrap — as the loading animation. The wait is the feat, not dead time.</p></div>
+      <div class="sp"><div class="lab">Grain &amp; halftone</div><p>Subtle film grain and halftone dot belong on hero fields for the vintage-print feel. Keep interface copy crisp and legible.</p></div>
+      <div class="sp"><div class="lab">Lettering &amp; fonts</div><p>Custom lockups persist as artwork. Everything else uses self-hosted Anton / Archivo / Oswald / Yellowtail + a system mono.</p></div>
+      <div class="sp"><div class="lab">Manual chrome</div><p>The cream paper surface belongs to this manual. It is a background field, not a production brand token to paint UI with.</p></div>
+      <div class="sp"><div class="lab">Release</div><p>The asset makes one point, ends at the medal, and carries no uncleared claim. If in doubt about a line, it is not cleared.</p></div>
+    </div>
+
+    <div class="kit">
+      <a id="kitTokens">CSS tokens ↓</a>
+      <a id="kitJson">Brand JSON ↓</a>
+      <a href="#top">Back to top ↑</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Prove It / Brand manual v0.1 — working draft</span>
+    <span>Visual canon: retro-athletic · Narrative: working · Not for external release</span>
+  </div>
+</footer>
+
+<div class="toast" id="toast">Copied</div>
+
+<script>
+(function(){
+  var out="Desktop", dim="1586 × 992";
+  var copySel=document.getElementById('copySel');
+  var briefOut=document.getElementById('briefOut');
+  var statusLine=document.getElementById('statusLine');
+  var pvLine=document.getElementById('pvLine');
+  var pvLabel=document.getElementById('pvLabel');
+  var pvPoster=document.getElementById('pvPoster');
+  var toast=document.getElementById('toast');
+
+  function line(){return copySel.value;}
+  function status(){return copySel.options[copySel.selectedIndex].getAttribute('data-status');}
+
+  function renderBrief(){
+    var st = status()==='cleared' ? 'cleared' : 'needs-clearance';
+    var b =
+"PROVE IT — PRODUCTION BRIEF\n"+
+"────────────────────────────\n"+
+"SYSTEM\n"+
+"  Manifest      : proving-activation@v0.1\n"+
+"  Visual canon  : retro-athletic (main + overrides)\n"+
+"  Surface       : "+out+"  ("+dim+")\n\n"+
+"COPY\n"+
+"  Line          : \""+line()+"\"\n"+
+"  Status        : "+st+"\n\n"+
+"LOCKUP\n"+
+"  Wordmark      : PROVE IT.  (Anton, artwork master — do not retype)\n"+
+"  Accent        : Yellowtail script, medal-gold\n"+
+"  Field         : sweat gradient  #E0218A → #6E4B9E\n"+
+"  Texture       : film grain + halftone, hero only\n\n"+
+"SIGNATURE MOTIF (fixed order)\n"+
+"  TAP → PROVE (on-device ~20s) → SUBMIT (Sepolia) → MEDAL\n\n"+
+"GUARDRAILS\n"+
+"  • No phone proving times/specs without engineering sign-off\n"+
+"  • Privacy wording SNF/legal-approved; no total-anonymity claim\n"+
+"  • Reward is soulbound — nothing farmable\n"+
+"  • Flagship-only framing; never hide the on-device step";
+    briefOut.textContent=b;
+  }
+  function renderStatus(){
+    if(status()==='cleared'){statusLine.textContent='Cleared campaign line · approved for use';statusLine.classList.add('cleared');}
+    else{statusLine.textContent='Operational description · needs-clearance';statusLine.classList.remove('cleared');}
+  }
+  function renderPreview(){
+    pvLine.textContent=line();
+    pvLabel.textContent='Reference master / '+out;
+    pvPoster.classList.remove('mobile','social');
+    if(out==='Mobile')pvPoster.classList.add('mobile');
+    if(out==='Social')pvPoster.classList.add('social');
+  }
+  function refresh(){renderStatus();renderPreview();renderBrief();}
+
+  document.getElementById('segOut').addEventListener('click',function(e){
+    var btn=e.target.closest('button'); if(!btn)return;
+    [].forEach.call(this.querySelectorAll('button'),function(b){b.setAttribute('aria-pressed','false')});
+    btn.setAttribute('aria-pressed','true');
+    out=btn.getAttribute('data-out'); dim=btn.getAttribute('data-dim'); refresh();
+  });
+  copySel.addEventListener('change',refresh);
+
+  function showToast(msg){toast.textContent=msg;toast.classList.add('show');setTimeout(function(){toast.classList.remove('show')},1500);}
+  function download(name,text,type){
+    var blob=new Blob([text],{type:type||'text/plain'});var url=URL.createObjectURL(blob);
+    var a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();
+    document.body.removeChild(a);URL.revokeObjectURL(url);
+  }
+
+  document.getElementById('copyBrief').addEventListener('click',function(){
+    var t=briefOut.textContent;
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(function(){showToast('Brief copied')},function(){showToast('Brief copied')});}
+    else{showToast('Brief copied');}
+  });
+  document.getElementById('dlBrief').addEventListener('click',function(){download('prove-it-brief.txt',briefOut.textContent);showToast('Brief downloaded');});
+
+  var tokensCSS=
+":root{\n"+
+"  /* Prove It — core */\n"+
+"  --magenta:#E0218A;\n  --grape:#6E4B9E;\n  --ink:#161011;\n  --cream:#F3EBDA;\n"+
+"  /* approved overrides — accents only */\n"+
+"  --court-red:#E4032E;\n  --medal-gold:#F4B223;\n  --court-sky:#6FB5DC;\n"+
+"  /* type roles */\n"+
+"  --font-display:'Anton',sans-serif;      /* headlines / lockups */\n"+
+"  --font-signature:'Yellowtail',cursive;  /* accent */\n"+
+"  --font-reading:'Archivo',sans-serif;    /* body */\n"+
+"  --font-utility:'Oswald',sans-serif;     /* labels / CTAs */\n"+
+"  --font-data:ui-monospace,monospace;     /* hashes / times */\n"+
+"}\n";
+  var brandJSON=JSON.stringify({
+    name:"Prove It",program:"Client-Side Proving Activation",manifest:"proving-activation@v0.1",
+    visualCanon:"retro-athletic (main + approved overrides)",narrative:"working",
+    concept:"Client-side proving reframed as an athletic feat: your phone trains, proves for ~20s, earns a keepsake medal.",
+    palette:{core:{magenta:"#E0218A",grape:"#6E4B9E",ink:"#161011",cream:"#F3EBDA"},accents:{courtRed:"#E4032E",medalGold:"#F4B223",courtSky:"#6FB5DC"}},
+    type:{display:"Anton 400",signature:"Yellowtail",reading:"Archivo 400/500/600/700/800",utility:"Oswald 500/600/700",data:"system monospace"},
+    signatureMotif:["TAP","PROVE (on-device ~20s)","SUBMIT (Sepolia)","MEDAL"],
+    apps:{A:"Pocket Prover",D:"Daily Proof",E:"Prover Relay"},
+    guardrails:["No phone proving times/specs without engineering sign-off","Privacy wording SNF/legal-approved; no total-anonymity claim","Reward soulbound — nothing farmable","Flagship-only framing; never hide the on-device step","No third-party trackers"]
+  },null,2);
+
+  document.getElementById('dlTokens').addEventListener('click',function(){download('prove-it.tokens.css',tokensCSS,'text/css');showToast('Tokens downloaded');});
+  document.getElementById('kitTokens').addEventListener('click',function(){download('prove-it.tokens.css',tokensCSS,'text/css');showToast('Tokens downloaded');});
+  document.getElementById('kitJson').addEventListener('click',function(){download('prove-it.brand.json',brandJSON,'application/json');showToast('Brand JSON downloaded');});
+
+  [].forEach.call(document.querySelectorAll('[data-asset]'),function(a){
+    a.style.cursor='pointer';
+    a.addEventListener('click',function(e){e.preventDefault();showToast('Specimen — master TBD: '+a.getAttribute('data-asset'));});
+  });
+
+  refresh();
+})();
+</script>
+</body>
+</html>
